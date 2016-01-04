@@ -45,6 +45,7 @@ int main(int argc, char **argv) {
   comment.Write("weights");
   f->Write();
   f->Close();
+  delete f;
 
   return 0;
 }
