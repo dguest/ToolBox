@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include <TFile.h>
 #include <TString.h>
@@ -35,9 +36,22 @@ void calldir(TDirectory *dir) {
   }
 }
 
-int main() {
+int main(int argc, char **argv) {
 
-  TFile *f = TFile::Open("2016-Winter-13TeV-plots-MC15-CDI-Tagger-Trends.root");
+  if (argc <= 1) {
+    std::cout << "Purpose: plot CDI-related histograms (tested on the Tagger-Trends file)" << std::endl;
+    std::cout << "Context: flavour tagging calibration" << std::endl;
+    std::cout << "Inputs:" << std::endl;
+    std::cout << "    - input ROOT file" << std::endl;
+    std::cout << "Usage:" << std::endl;
+    std::cout << "    - Plot_CDI $INPUT_ROOT_FILE" << std::endl;
+    return 1;
+  }
+
+  std::string input = argv[1];
+  std::cout << "input ROOT file " << input << std::endl;
+
+  TFile *f = TFile::Open(input.c_str());
   calldir(f);
   delete f;
   return 0;
